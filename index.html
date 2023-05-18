@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script> -->
+
+    <script>
+      function onDOMReady(fn) {
+        if (document.readyState !== "loading") {
+          fn();
+        } else {
+          document.addEventListener("DOMContentLoaded", fn);
+        }
+      }
+
+      function setPageVisit() {
+        self.optimoveSDK.API.setPageVisit(location.href, document.title);
+      }
+
+      function optimobilePushRegister() {
+        // self.optimoveSDK.API.pushRegister();
+        console.log('Pressed Push Register Button');
+        Kumulos('pushRegister');
+      }
+
+      function setUserId() {
+        self.optimoveSDK.API.setUserId(prompt("Customer ID?", ""));
+      }
+
+      function setUserEmail() {
+        self.optimoveSDK.API.setUserEmail(
+          prompt("Email address?"),
+          null,
+          prompt("Customer ID?")
+        );
+      }
+
+      function reportEvent() {
+        optimoveSDK.API.reportEvent(prompt("Event type?"));
+      }
+
+      function requestNotificationPermission() {
+        Notification.requestPermission();
+      }
+
+      async function requestSubVAPID1() {
+        Kumulos("pushRegister");
+      }
+    </script>
+    <title>Optimove Web SDK Demo</title>
+    <link rel="manifest" href="manifest.json"/>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+
+    <!-- <script async src="https://sdk.optimove.net/websdk/?tenant_id=593" data-optimove-service-worker-path="/optimove-scoped-sw/sub-path/myFancyWorker.js"></script> -->
+    <!-- <script src="/config.js"></script> -->
+    <!-- <script async src="/sdk-qa.js" data-optimove-service-worker-path="/optimove-scoped-sw/sub-path/myFancyWorker.js"></script> -->
+    <script>
+      (function(w,p){w[p]=w[p]||function(){w[p].q=w[p].q||[];w[p].q.push(arguments)}})(window,"Kumulos");
+
+      Kumulos("init", {
+          apiKey: "a599198a-2930-4845-aafc-b93c2de8710b",
+          secretKey: "scDsBktbGtjWiD+XaZP/3+wavnzKfj92Szv1",
+          vapidPublicKey: "BOQbcyQiHROXNZ27kkwD4QtbTNVBRIYRqzQbSHOdnGuVu7Spez7mhw0Otp7lcynZK7AiJxH_xWYK7OahIEKslW8",
+          region: 'eu-central-1',
+          serviceWorkerPath: 'PWA-debug/optimove-worker.js',
+          originalVisitorId: 'e571533f-02eb-429b-bed4-d9ed6cfda2e8'
+      });
+      </script>
+    <script async src="optimove-web-bundle.js"></script>
+    <!-- <script async src="/web-bundle.js"></script> -->
+    
+  </head>
+  <body>
+    <main class="container">
+      <div class="grid">
+        <!-- <button type="button" onclick="setPageVisit()">Set page visit</button>
+        <button type="button" onclick="reportEvent()">Track event</button> -->
+        <button type="button" onclick="optimobilePushRegister()">
+          Push register
+        </button>
+        <!-- <button type="button" onclick="setUserId()">Set customer ID</button>
+        <button type="button" onclick="setUserEmail()">Set user email</button> -->
+        <button type="button" onclick="requestNotificationPermission()">Request permission</button>
+        <button type="button" onclick="requestSubVAPID1()">Request sub VAPID B</button>
+      </div>
+    </main>
+  </body>
+</html>
